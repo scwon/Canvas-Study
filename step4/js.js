@@ -54,18 +54,14 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
-var count = 7;
-
+var count = 1;
 var color = ['red', 'orange', 'yellow', 'green', 'blue', 'darkblue', 'purple'];
 
-var qq = 0;
 setInterval(function(){
   var values = [];
   for(var i = 0; i < count; i++){
     values.push(Math.floor(Math.random()*100) + 1);
   }
-
-  values = [1, 1, 1, 1, 1, 1, 1];
 
   var thisRadian = Math.PI;
 
@@ -78,9 +74,9 @@ setInterval(function(){
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   percent.forEach((per, index) => {
-    ctx.fillStyle = color[((7-qq)+index) % 7];
+    ctx.fillStyle = color[index % 7];
     ctx.beginPath();
-    var nextRadian = thisRadian + ((Math.PI * 2) * (per/100));
+    var nextRadian = thisRadian + Math.PI * (per/100);
     ctx.arc(200, 200, 100, thisRadian, nextRadian, false);
     ctx.arc(200, 200, 70, nextRadian, thisRadian, true);
     ctx.fill();
@@ -88,14 +84,14 @@ setInterval(function(){
     thisRadian = nextRadian;
   })
 
-  if(qq < 6){
-    qq++;
+  ctx.fillStyle = 'black';
+  ctx.font = "30px auto";
+  ctx.textAlign = "center"
+  ctx.fillText("CPU", 200, 200);
+
+  if(count < 7){
+    count ++;
   }else{
-    qq = 0;
+    count = 1;
   }
-  if(count < 10){
-    // count ++;
-  }else{
-    // count = 1;
-  }
-}, 100)
+}, 1000)
